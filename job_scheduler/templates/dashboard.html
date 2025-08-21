@@ -1,0 +1,98 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+  <!-- Title -->
+  <h1 class="text-center mb-5">📊 {{ site_name }} Dashboard</h1>
+
+  <!-- Stats Cards -->
+  <div class="row g-4 text-center">
+    <div class="col-md-3">
+      <div class="card shadow-lg border-primary">
+        <div class="card-body">
+          <h5 class="card-title">Total Clients</h5>
+          <p class="display-6 text-primary">{{ clients_count }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-lg border-success">
+        <div class="card-body">
+          <h5 class="card-title">Total Jobs</h5>
+          <p class="display-6 text-success">{{ jobs_count }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-lg border-warning">
+        <div class="card-body">
+          <h5 class="card-title">Active Jobs</h5>
+          <p class="display-6 text-warning">{{ jobs_count|default:0 }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-lg border-info">
+        <div class="card-body">
+          <h5 class="card-title">Completed Jobs</h5>
+          <p class="display-6 text-info">{{ jobs_count|default:0 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upcoming Jobs Section -->
+  <div class="mt-5">
+    <h3 class="mb-3">📅 Upcoming Jobs</h3>
+    <div class="card shadow-sm">
+      <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Client</th>
+              <th>Description</th>
+              <th>Start Date</th>
+              <th>Finish Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for job in upcoming_jobs %}
+            <tr>
+              <td>{{ job.client.name }}</td>
+              <td>{{ job.description|truncatechars:40 }}</td>
+              <td>{{ job.start_date }}</td>
+              <td>{{ job.finish_date }}</td>
+              <td>
+                <span
+                  class="badge {% if job.status == 'pending' %} bg-warning {% elif job.status == 'in_progress' %} bg-info {% elif job.status == 'completed' %} bg-success {% endif %}"
+                >
+                  {{ job.get_status_display }}
+                </span>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5" class="text-center text-muted">
+                No upcoming jobs
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="text-center mt-5">
+    <a href="{% url 'client_list' %}" class="btn btn-primary btn-lg mx-2">
+      Manage Clients
+    </a>
+    <a href="{% url 'job_list' %}" class="btn btn-success btn-lg mx-2">
+      Manage Jobs
+    </a>
+  </div>
+</div>
+{% endblock %}

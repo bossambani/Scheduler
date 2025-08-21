@@ -1,0 +1,23 @@
+{% extends "base.html" %}{% load widget_tweaks %} {% block content %}
+<div class="card shadow-lg">
+  <div class="card-header bg-primary text-white">
+    <h4>{{ form.instance.pk|yesno:"Edit Client,Add Client" }}</h4>
+  </div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.name.label_tag }} {{ form.name|add_class:"form-control" }}
+      </div>
+      <div class="mb-3">
+        {{ form.email.label_tag }} {{ form.email|add_class:"form-control" }}
+      </div>
+      <div class="mb-3">
+        {{ form.phone.label_tag }} {{ form.phone|add_class:"form-control" }}
+      </div>
+      <button type="submit" class="btn btn-success">Save</button>
+      <a href="{% url 'client_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
