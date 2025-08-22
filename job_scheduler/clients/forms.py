@@ -4,19 +4,23 @@ from .models import Client, Job
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ["name", "email", "phone"]
+        fields = ["name", "address", "email", "phone"]
         widgets = {
             "name": forms.TextInput(attrs={
                 "class": "form-control",
-                "placeholder": "Enter full name"
+                "placeholder": "Enter Client's Name"
+            }),
+            "address": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Enter Client's Address"
             }),
             "email": forms.EmailInput(attrs={
                 "class": "form-control",
-                "placeholder": "Enter email address"
+                "placeholder": "Enter Email Address"
             }),
             "phone": forms.TextInput(attrs={
                 "class": "form-control",
-                "placeholder": "Enter phone number"
+                "placeholder": "Enter Phone Number"
             }),
         }
 class JobForm(forms.ModelForm):
@@ -26,7 +30,7 @@ class JobForm(forms.ModelForm):
         widgets = {
             "client": forms.Select(attrs={
                 "class": "form-control"
-            }),  # ✅ Use Select instead of TextInput
+            }),  
             "description": forms.Textarea(attrs={
                 "class": "form-control",
                 "rows": 3,

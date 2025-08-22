@@ -22,6 +22,7 @@
       <thead class="table-dark">
         <tr>
           <th>Name</th>
+          <th>Address</th>
           <th>Email</th>
           <th>Phone</th>
           <th>Actions</th>
@@ -31,6 +32,7 @@
         {% for client in clients %}
         <tr>
           <td>{{ client.name }}</td>
+          <td>{{ client.address }}</td>
           <td>{{ client.email }}</td>
           <td>{{ client.phone }}</td>
           <td>

@@ -3,6 +3,7 @@ from django.db.models import Q
 from .models import Client, Job
 from .forms import ClientForm, JobForm
 
+
 def dashboard(request):
     site_name = "JobTracker"
     clients_count = Client.objects.count()
